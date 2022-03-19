@@ -59,6 +59,6 @@ func main() {
 	check(err)
 	for _, element := range indices {
 		fmt.Print(strings.TrimLeft(words[element+1], "href=") + "\n")
-		f.Write([]byte(strings.TrimLeft(words[element+1], "href=") + "\n"))
+		f.WriteString(strings.TrimLeft(words[element+1], "href=") + "\n")
 	}
 }

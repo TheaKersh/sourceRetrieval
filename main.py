@@ -1,4 +1,5 @@
 from asyncio.windows_events import NULL
+from pickle import APPEND
 from tkinter import N
 from requests import Request, Session
 
@@ -41,19 +42,25 @@ r = s.get(url)
 print(r.status_code)
 
 # Sends the login data
-r = s.post( url, data=data )
+r = s.post(url, data=data )
 
 f = open("test.html", "w")
-str = r.content.decode("utf-8")
-f.write(str)
+st = r.content.decode("utf-8")
+f.write(st)
 f2 = open("links.txt", "r")
-s = f2.read()
-print(s)
-links = [""]
-for i in range(len(s)):
-	if s[i] == "\n":
-		break
-	else :
-		links[0] = links[0].join(s[i])
-print(links[0])
-	
+links = []
+print(f2.readline())
+for line in f2:
+	links.append(line[1:(len(line)-2)])
+print("https://ps.seattleschools.org/guardian/" + links[0])
+r = s.get("https://ps.seattleschools.org/guardian/" + links[0])
+
+#lol
+f_asses = open("assignments.txt", "a")
+for link in links:
+	if ">" in link:
+		continue
+	else:
+		r = s.get("https://ps.seattleschools.org/guardian/" + link)
+		f_asses.write(r.content.decode("utf-8"))
+
