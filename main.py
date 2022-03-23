@@ -23,15 +23,6 @@ data = {
 	"translatorpw": ""
 }
 
-def readLine(readfrom):
-	ret = ""
-	for i, char in range(readfrom):
-		if char == "\n":
-			break
-		else:
-			ret.join(char)
-	return ret
-
 
 
 
@@ -63,4 +54,12 @@ for link in links:
 	else:
 		r = s.get("https://ps.seattleschools.org/guardian/" + link)
 		f_asses.write(r.content.decode("utf-8"))
+
+url = "https://ps.seattleschools.org/ws/xte/assignment/lookup?_=1647657691326"
+postData = {"section_ids":[515612],"student_ids":[194202],"start_date":"2022-1-28","end_date":"2022-4-7"}
+s.get("https://ps.seattleschools.org/scripts/components/studentScores/views/studentScores.html")
+s.get("https://ps.seattleschools.org/ws/i18n/messageKeys?_=1647657541047&keys=psx.js.jswidgets.gridWidget,psx.js.scripts_components_shared_interceptors")
+r = s.post(url, json=postData)
+
+print(r.content)
 
